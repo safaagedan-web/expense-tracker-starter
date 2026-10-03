@@ -7,6 +7,11 @@ function showAlert(message, type) {
 
     alertMessage.textContent = message;
     alertMessage.className = `alert alert-${type}`;
+    alertMessage.classList.remove("d-none");
+
+    setTimeout(function () {
+        alertMessage.classList.add("d-none");
+    }, 10000);
 }
 form.addEventListener("submit", async function (event) {
     event.preventDefault();

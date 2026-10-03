@@ -42,7 +42,13 @@ DB_PASSWORD=
 ## GitHub Repository
 
 [View the project on GitHub](https://github.com/safaagedan-web/expense-tracker-starter)
+
+
+## Demo Video
+
+[Watch the project demo] (https://drive.google.com/file/d/1XzqrCGfj3h-p8fe4wZY5dHa95wajaCJF/view?usp=drive_link)
 ## Features
+
 
 
 - [x] Add an expense with validation
