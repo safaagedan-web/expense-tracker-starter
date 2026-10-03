@@ -4,11 +4,63 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+.summary-cards .card {
+    border: 1px solid #e9ecef;
+    border-radius: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.summary-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.summary-cards .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.summary-cards .card-text {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
 
 @media (max-width: 768px) {
     .summary {
         grid-template-columns: 1fr;
     }
+}
+#categoryFilter {
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#categoryFilter:focus {
+    border-color: #3f4142;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+#titleSearch {
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#titleSearch:focus {
+    border-color: #3f4142;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+.table thead th {
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+}
+.table tbody td {
+    vertical-align: middle;
+    text-align: center;
 }
 .dark-mode {
     background-color: #212529;
@@ -23,4 +75,76 @@
 
 .dark-mode .table {
     color: white;
+}
+.edit-btn {
+    background-color: #e7f1ff;
+    color:  #6590d8;
+    border: 1px solid #b6d4fe;
+}
+.add-expense-btn {
+    background-color: #6c8ef5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+}
+
+.add-expense-btn:hover {
+    background-color: #5578e6;
+    color: white;
+}
+.edit-btn:hover {
+    background-color: #cfe2ff;
+    color: #03070e;
+}
+.delete-btn {
+    background-color: #fde8e8;
+    color: #d7727c;
+    border: 1px solid #f5c2c7;
+}
+
+.delete-btn:hover {
+    background-color: #f8d7da;
+    color: #d7727c;
+}
+#editModal .modal-content {
+    border: none;
+    border-radius: 15px;
+}
+
+#editModal .modal-header {
+    border-bottom: 1px solid #eee;
+}
+
+#editModal .modal-title {
+    font-weight: 600;
+}
+
+#editModal .modal-footer {
+    border-top: 1px solid #eee;
+}
+.cancel-btn {
+    background-color: #f1f3f5;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.cancel-btn:hover {
+    background-color: #e9ecef;
+    color: #212529;
+}
+#deleteModal .modal-content {
+    border: none;
+    border-radius: 15px;
+}
+
+#deleteModal .modal-header {
+    border-bottom: 1px solid #eee;
+}
+
+#deleteModal .modal-title {
+    font-weight: 600;
+}
+
+#deleteModal .modal-footer {
+    border-top: 1px solid #eee;
 }

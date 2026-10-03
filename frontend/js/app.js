@@ -2,6 +2,12 @@ const API_URL = "http://localhost:3000/api/expenses";
 
 
 const form = document.getElementById("expenseForm");
+function showAlert(message, type) {
+    const alertMessage = document.getElementById("alertMessage");
+
+    alertMessage.textContent = message;
+    alertMessage.className = `alert alert-${type}`;
+}
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
     try {
@@ -12,7 +18,7 @@ form.addEventListener("submit", async function (event) {
         const date = document.getElementById("date").value;
 
         if (!title || !amount || !category || !date) {
-            alert("All fields are required");
+          showAlert("All fields are required", "danger");
             return;
         }
 
@@ -37,12 +43,12 @@ form.addEventListener("submit", async function (event) {
 
 
 
-        alert("Expense added successfully");
+       showAlert("Expense added successfully", "success");
         form.reset();
         getExpenses();
     } catch (error) {
         console.error(error);
-        alert("Failed to add expense");
+       showAlert("Failed to add expense", "danger");
     }
 });
 
@@ -81,13 +87,13 @@ async function getExpenses(category = "All", searchText = "") {
         <td>${expense.category}</td>
         <td>${expense.date}</td>
         <td>
-        <button class="btn btn-warning btn-sm" onclick="editExpense(${expense.id})">
-         Edit
-         </button>
+       <button class="btn btn-sm edit-btn me-1" onclick="editExpense(${expense.id})">
+    Edit
+</button>
          
-        <button class="btn btn-danger btn-sm" onclick="deleteExpense(${expense.id})">
-        Delete
-        </button>
+       <button class="btn btn-sm delete-btn me-1" onclick="deleteExpense(${expense.id})">
+    Delete
+</button>
         </td>
     `;
 
@@ -96,7 +102,7 @@ async function getExpenses(category = "All", searchText = "") {
 
     } catch (error) {
         console.error(error);
-        alert("Failed to load expenses");
+        showAlert("Unable to connect to the server. Please make sure the backend is running.", "danger");
     }
     finally {
         spinner.classList.add("d-none");
@@ -130,26 +136,41 @@ function updateSummary(expenses) {
         ? Math.max(...expenses.map(expense => Number(expense.amount)))
         : 0; document.getElementById("highestExpense").textContent = highest.toFixed(2);
 }
-async function deleteExpense(id) {
-    const confirmed = confirm("Are you sure you want to delete this expense?");
 
-    if (!confirmed) {
-        return;
-    }
+// Delete Expense
+let deleteId = null;
+function deleteExpense(id) {
+    deleteId = id;
+
+    const modal = new bootstrap.Modal(
+        document.getElementById("deleteModal")
+    );
+
+    modal.show();
+}
+document.getElementById("confirmDeleteBtn").addEventListener("click", async function () {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/${deleteId}`, {
             method: "DELETE"
         });
+
         if (!response.ok) {
             throw new Error("Failed to delete expense");
         }
-        alert("Expense deleted successfully");
+
+        showAlert("Expense deleted successfully", "success");
+
         getExpenses();
+
+        const modalElement = document.getElementById("deleteModal");
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        modal.hide();
+
     } catch (error) {
         console.error(error);
-        alert("Failed to delete expense");
+        showAlert("Failed to delete expense", "danger");
     }
-}
+});
 //Edit Expense
 async function editExpense(id) {
     try {
@@ -171,7 +192,7 @@ async function editExpense(id) {
 
     } catch (error) {
         console.error(error);
-        alert("Failed to load expense");
+        showAlert("Failed to load expense", "danger");
     }
 
 
@@ -204,7 +225,7 @@ async function updateExpense() {
         if (!response.ok) {
             throw new Error("Failed to update expense");
         }
-        alert("Expense updated successfully");
+      showAlert("Expense updated successfully", "success");
 
         const modalElement = document.getElementById("editModal");
         const modal = bootstrap.Modal.getInstance(modalElement);
@@ -215,7 +236,7 @@ async function updateExpense() {
 
     } catch (error) {
         console.error(error);
-        alert("Failed to update expense");
+        showAlert("Failed to update expense", "danger");
     }
 }
 
