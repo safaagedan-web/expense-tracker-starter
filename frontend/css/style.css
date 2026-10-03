@@ -1,0 +1,26 @@
+/* Your custom styles go here.
+   Use Bootstrap classes first, and write your own CSS only when you need to. */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+    .summary {
+        grid-template-columns: 1fr;
+    }
+}
+.dark-mode {
+    background-color: #212529;
+    color: white;
+}
+
+.dark-mode .card,
+.dark-mode .modal-content {
+    background-color: #343a40;
+    color: white;
+}
+
+.dark-mode .table {
+    color: white;
+}
